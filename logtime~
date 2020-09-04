@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-echo "hola"
-mv /home/jesusdominguez/usuarios.txt /home/jesusdominguez/Escritorio/logtime/
