@@ -1,5 +1,5 @@
-# Práctica 1
-## Seguridad: Logtime
-#### Elena Ginebra 
+# Seguridad:
+## Práctica 1: Logtime
+#### Elena Ginebra Zarandona
 #### Mariana A. Carmona
 #### J. Enrique Domínguez
