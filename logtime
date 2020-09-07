@@ -8,9 +8,13 @@ elif [ "$#" > "1" ]
 then
     if [ "$1" == "-f" ]
     then
-        cat $2
+        echo "Usuarios     Tiempo"
+        cat $2 |tr -s " " > salida.txt
+        cut -d " " -f 1,10 salida.txt
     elif [ "$1" == "-u" ]
     then
-        grep $2 $4
+        echo "Datos     Tiempo"
+        grep $2 $4 |tr -s " " > salida.txt
+        cut -d " " -f 1,10 salida.txt
     fi
 fi
