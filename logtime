@@ -8,9 +8,9 @@ elif [ "$#" > "1" ]
 then
     if [ "$1" == "-f" ]
     then
-           cat usuarios260820.txt
+        cat $2
     elif [ "$1" == "-u" ]
     then
-            grep $2 $4 usuarios260820.txt > salida.txt
+        grep $2 $4
     fi
 fi
