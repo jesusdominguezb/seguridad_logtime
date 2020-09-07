@@ -1,12 +1,16 @@
-#!/usr/bin/env bash
-echo "hola"
-ARG1=[$0]
-ARG2=[$1]
-echo "$ARG1"
-if [$ARG2 -eq $COMO]
-then 
-       echo "sí es"
+#! /bin/bash
+  
+if [ "$1" == "-h" ]
+then
+    echo "Soy ayuda"
+
+elif [ "$#" > "1" ]
+then
+    if [ "$1" == "-f" ]
+    then
+           cat usuarios260820.txt
+    elif [ "$1" == "-u" ]
+    then
+            grep $2 $4 usuarios260820.txt > salida.txt
+    fi
 fi
-
-   
-
