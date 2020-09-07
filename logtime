@@ -10,11 +10,13 @@ then
     then
         echo "Usuarios     Tiempo"
         cat $2 |tr -s " " > salida.txt
-        cut -d " " -f 1,10 salida.txt
+        cut -d " " -f 1,10 salida.txt > resul.txt
+	rm salida.txt
     elif [ "$1" == "-u" ]
     then
         echo "Datos     Tiempo"
         grep $2 $4 |tr -s " " > salida.txt
-        cut -d " " -f 1,10 salida.txt
+        cut -d " " -f 1,10 salida.txt > resul.txt
+	rm salida.txt
     fi
 fi
