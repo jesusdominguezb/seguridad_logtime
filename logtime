@@ -4,19 +4,22 @@ if [ "$1" == "-h" ]
 then
     echo "Soy ayuda"
 
-elif [ "$#" > "1" ]
-then
+elif [ "$#" -gt "1" ]
+then      
     if [ "$1" == "-f" ]
-    then
-        echo "Usuarios     Tiempo"
+    then  
+        echo "Usuarios     Tiempo" 
         cat $2 |tr -s " " > salida.txt
-        cut -d " " -f 1,10 salida.txt > resul.txt
-	rm salida.txt
+        cut -d " " -f 1,10 salida.txt
     elif [ "$1" == "-u" ]
     then
-        echo "Datos     Tiempo"
+        echo "Datos     |       Tiempo (hh:mm)"
         grep $2 $4 |tr -s " " > salida.txt
-        cut -d " " -f 1,10 salida.txt > resul.txt
-	rm salida.txt
-    fi
-fi
+        s1=$(cut -d " " -f 1 salida.txt | uniq) 
+        cut -d " " -f 10 salida.txt | sed -e's/^(//' -e 's/)$//' > resul.txt
+        rm salida.txt
+        s2=$(sed 's/:/./g' resul.txt | paste -s -d + - | bc)
+        echo "  $s1     |       $s2"
+    fi 
+fi  
+
