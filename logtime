@@ -13,13 +13,20 @@ then
         cut -d " " -f 1,10 salida.txt
     elif [ "$1" == "-u" ]
     then
-        echo "Datos     |       Tiempo (hh:mm)"
-        grep $2 $4 |tr -s " " > salida.txt
+        echo "Datos       |     Tiempo (hh:mm)"
+	grep $2 $4 |tr -s " " > salida.txt
         s1=$(cut -d " " -f 1 salida.txt | uniq) 
         cut -d " " -f 10 salida.txt | sed -e's/^(//' -e 's/)$//' > resul.txt
-        rm salida.txt
-        s2=$(sed 's/:/./g' resul.txt | paste -s -d + - | bc)
-        echo "  $s1     |       $s2"
+	hora=$(cut -c 1-2 resul.txt | paste -s -d + - | bc)
+	min=$(cut -c 4-5 resul.txt | paste -s -d + - | bc)
+
+	seg=$(((hora*3600)+(min*60)))
+	s2=$(echo $seg | awk '{printf "%d:%02d:%02d", $1/3600, ($1/60)%60, $1%60}')        
+        #s2=$(sed 's/:/./g' resul.txt | paste -s -d + - | bc)
+        echo "$s1     |       $s2"
+	rm salida.txt
+	rm resul.txt
+	
     fi 
 fi  
 
