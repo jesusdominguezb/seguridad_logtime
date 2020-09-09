@@ -1,5 +1,3 @@
-#! /bin/bash
-
 if [ "$1" == "-h" ]
 then
     echo "Soy ayuda"
@@ -7,13 +5,6 @@ then
 elif [ "$#" -gt "1" ]
 then
     if [ "$1" == "-f" ]
-<<<<<<< HEAD
-    then  
-        echo "Usuarios     Tiempo" 
-        cat $2 |tr -s " " > salida.txt
-        cut -d " " -f 1,10 salida.txt | awk '{ if ($1 != "wtmp" && $1 != "" && $1 != "reboot") printf "\n%s %s", $1, $2;}'
-	
-=======
     then
         echo "Datos       |     Tiempo (hh:mm:ss)"
         cat $2 | tr -s " " | cut -d " " -f 1,10 | awk '{ if ($1 != "wtmp" && $1 != "" && $1 != "reboot" && $2 != "in") printf "\n%s %s", $1, $2;}'> resul.txt
@@ -35,7 +26,6 @@ then
         rm resul.txt
         rm resul2.txt
         rm nombres.txt
->>>>>>> 09c94af92969e16a8b57bfbab5cdc4ee24bcd1ca
     elif [ "$1" == "-u" ]
     then
         echo "Datos       |     Tiempo (hh:mm:ss)"
@@ -47,15 +37,7 @@ then
         seg=$(((hora*3600)+(min*60)))
         s2=$(echo $seg | awk '{printf "%d:%02d:%02d", $1/3600, ($1/60)%60, $1%60}')
         echo "$s1     |       $s2"
-<<<<<<< HEAD
-
-	
-    fi 
-fi  
-
-=======
         rm salida.txt
         rm resul.txt
     fi
 fi
->>>>>>> 09c94af92969e16a8b57bfbab5cdc4ee24bcd1ca
