@@ -1,6 +1,11 @@
+if [ "1" -gt "$#" ]
+then
+    echo "Faltan argumentos..."
+    echo "Pruebe './logtime -h' para más información."
+fi
 if [ "$1" == "-h" ]
 then
-    echo "Soy ayuda"
+    tail -n 12  README.md
 
 elif [ "$#" -gt "1" ]
 then
