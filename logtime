@@ -1,32 +1,61 @@
 #! /bin/bash
-  
+
 if [ "$1" == "-h" ]
 then
     echo "Soy ayuda"
 
 elif [ "$#" -gt "1" ]
-then      
+then
     if [ "$1" == "-f" ]
+<<<<<<< HEAD
     then  
         echo "Usuarios     Tiempo" 
         cat $2 |tr -s " " > salida.txt
         cut -d " " -f 1,10 salida.txt | awk '{ if ($1 != "wtmp" && $1 != "" && $1 != "reboot") printf "\n%s %s", $1, $2;}'
 	
+=======
+    then
+        echo "Datos       |     Tiempo (hh:mm:ss)"
+        cat $2 | tr -s " " | cut -d " " -f 1,10 | awk '{ if ($1 != "wtmp" && $1 != "" && $1 != "reboot" && $2 != "in") printf "\n%s %s", $1, $2;}'> resul.txt
+        cat resul.txt | cut -d " " -f 1 | sort | uniq > nombres.txt
+        n=$(cat nombres.txt | wc -l)
+        n=$(($n - 1))
+        for (( i=2; i<=$n; i++ ))
+        do
+                us=$(head -${i} nombres.txt |tail -1)
+                grep $us resul.txt  > salida.txt
+                cut -d " " -f 2 salida.txt  > resul2.txt
+                hora=$(cut -c 2-3 resul2.txt | paste -s -d + - |bc)
+                min=$(cut -c 5-6 resul2.txt | paste -s -d + - |bc)
+                seg=$(((hora*3600)+(min*60)))
+                s2=$(echo $seg | awk '{printf "%d:%02d:%02d", $1/3600, ($1/60)%60, $1%60}')
+                echo "$us     |       $s2"
+        done
+        rm salida.txt
+        rm resul.txt
+        rm resul2.txt
+        rm nombres.txt
+>>>>>>> 09c94af92969e16a8b57bfbab5cdc4ee24bcd1ca
     elif [ "$1" == "-u" ]
     then
         echo "Datos       |     Tiempo (hh:mm:ss)"
-	grep $2 $4 |tr -s " " > salida.txt
-        s1=$(cut -d " " -f 1 salida.txt | uniq) 
-        cut -d " " -f 10 salida.txt | sed -e's/^(//' -e 's/)$//' > resul.txt
-	hora=$(cut -c 1-2 resul.txt | paste -s -d + - | bc)
-	min=$(cut -c 4-5 resul.txt | paste -s -d + - | bc)
-
-	seg=$(((hora*3600)+(min*60)))
-	s2=$(echo $seg | awk '{printf "%d:%02d:%02d", $1/3600, ($1/60)%60, $1%60}')        
-        #s2=$(sed 's/:/./g' resul.txt | paste -s -d + - | bc)
+        grep $2 $4 |tr -s " " > salida.txt
+        s1=$(cut -d " " -f 1 salida.txt | uniq)
+        cut -d " " -f 10 salida.txt | sed -e's/^(//' -e 's/)$//' | awk '{ if ($1 != "in") printf "%s\n", $1;}' > resul.txt
+        hora=$(cut -c 1-2 resul.txt | paste -s -d + - | bc)
+        min=$(cut -c 4-5 resul.txt | paste -s -d + - | bc)
+        seg=$(((hora*3600)+(min*60)))
+        s2=$(echo $seg | awk '{printf "%d:%02d:%02d", $1/3600, ($1/60)%60, $1%60}')
         echo "$s1     |       $s2"
+<<<<<<< HEAD
 
 	
     fi 
 fi  
 
+=======
+        rm salida.txt
+        rm resul.txt
+    fi
+fi
+>>>>>>> 09c94af92969e16a8b57bfbab5cdc4ee24bcd1ca
