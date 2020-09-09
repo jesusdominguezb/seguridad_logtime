@@ -10,7 +10,7 @@ then
     then  
         echo "Usuarios     Tiempo" 
         cat $2 |tr -s " " > salida.txt
-        cut -d " " -f 1,10 salida.txt
+        cut -d " " -f 1,10 salida.txt | awk '{ if ($1 != "wtmp" && $1 != "" && $1 != "reboot") printf "\n%s %s", $1, $2;}'
 	
     elif [ "$1" == "-u" ]
     then
@@ -25,8 +25,7 @@ then
 	s2=$(echo $seg | awk '{printf "%d:%02d:%02d", $1/3600, ($1/60)%60, $1%60}')        
         #s2=$(sed 's/:/./g' resul.txt | paste -s -d + - | bc)
         echo "$s1     |       $s2"
-	rm salida.txt
-	rm resul.txt
+
 	
     fi 
 fi  
